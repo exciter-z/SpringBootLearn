@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/SpringBootLearn.iml" filepath="$PROJECT_DIR$/.idea/SpringBootLearn.iml" />
       <module fileurl="file://$PROJECT_DIR$/learn-01/demo.iml" filepath="$PROJECT_DIR$/learn-01/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/learn-01/learn-01.iml" filepath="$PROJECT_DIR$/learn-01/learn-01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/learn-02/learn-02.iml" filepath="$PROJECT_DIR$/learn-02/learn-02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/learn-03/learn-03.iml" filepath="$PROJECT_DIR$/learn-03/learn-03.iml" />
     </modules>
   </component>
 </project>
