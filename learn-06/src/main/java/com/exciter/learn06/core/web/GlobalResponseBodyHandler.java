@@ -10,9 +10,11 @@ import org.springframework.web.reactive.HandlerResult;
 import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class GlobalResponseBodyHandler extends ResponseBodyResultHandler {
 
@@ -42,6 +44,31 @@ public class GlobalResponseBodyHandler extends ResponseBodyResultHandler {
 
     @Override
     public Mono<Void> handleResult(ServerWebExchange exchange, HandlerResult result) {
-        return super.handleResult(exchange, result);
+        Object returnValue = result.getReturnValue();
+        Object body;
+        if (returnValue instanceof Mono) {
+            body = ((Mono<Object>) result.getReturnValue())
+                    .map((Function<Object, Object>) GlobalResponseBodyHandler::wrapCommonResult)
+                    .defaultIfEmpty(COMMON_RESULT_SUCCESS);
+        } else if (returnValue instanceof Flux) {
+            body = ((Flux<Object>) result.getReturnValue())
+                    .collectList()
+                    .map((Function<Object, Object>) GlobalResponseBodyHandler::wrapCommonResult)
+                    .defaultIfEmpty(COMMON_RESULT_SUCCESS);
+        } else {
+            body = wrapCommonResult(returnValue);
+        }
+        return writeBody(body, METHOD_PARAMETER_MONO_COMMON_RESULT, exchange);
+    }
+
+    private static Mono<CommonResult> methodForParams() {
+        return null;
+    }
+
+    private static CommonResult<?> wrapCommonResult(Object body) {
+        if (body instanceof CommonResult) {
+            return (CommonResult<?>) body;
+        }
+        return CommonResult.success(body);
     }
 }
