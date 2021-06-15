@@ -109,6 +109,7 @@ public class SpringMVCConfiguration implements WebMvcConfigurer {
         fastJsonHttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON,
                 MediaType.APPLICATION_JSON_UTF8));
         converters.add(0, fastJsonHttpMessageConverter);
+
     }
 
 
