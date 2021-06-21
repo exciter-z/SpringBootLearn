@@ -1,0 +1,15 @@
+spring:
+    #对应RedisProperties类
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: # Redis服务器密码，默认为空。生产环境一定要设置
+      database: 0 # Redis数据库号，默认为0
+      timeout: 0 # Redis链接超时时间，单位ms
+      # 对应RedisProperties.Jedis内部类
+      jedis:
+        pool:
+          max-active: 500 # 连接池最大数，默认为8，使用负数表示没有限制
+          max-idle: 8 # 默认连接数最大空闲的连接数，默认为8，使用负数表示没有限制
+          min-idle: 0 # 默认连接数最小空闲的连接数，默认为0，允许设置0和正数
+          max-wait: -1 # 连接池最大阻塞等待时间，单位ms，默认为-1，表示不限制
